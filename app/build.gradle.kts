@@ -51,6 +51,28 @@ android {
 
 dependencies {
 
+    //   // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+
+    // OkHttp (for logging & API key interceptor)
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
+
+    // Paging 3
+    implementation("androidx.paging:paging-runtime-ktx:3.3.4")
+    implementation("androidx.paging:paging-compose:3.3.4")
+
+    // Navigation Compose
+    implementation("androidx.navigation:navigation-compose:2.8.4")
+
+    // Coil (Image loading)
+    implementation("io.coil-kt:coil-compose:2.7.0")
+
+
     implementation("androidx.core:core-ktx:1.17.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.10.0")
     implementation("androidx.activity:activity-compose:1.12.2")
