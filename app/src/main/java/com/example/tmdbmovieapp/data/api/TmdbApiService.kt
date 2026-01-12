@@ -10,7 +10,8 @@ interface TmdbApiService {
 
     @GET("discover/movie")
     suspend fun getMovies(
-        @Query("page") page: Int
+        @Query("page") page: Int,
+        @Query("sort_by") sortBy: String= "popularity.desc"
     ): MovieResponseDto
 
     @GET("search/movie")

@@ -1,7 +1,14 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
+
+val localProperties = Properties().apply {
+    load(rootProject.file("local.properties").inputStream())
+}
+val tmdbApiKey: String = localProperties.getProperty("TMDB_API_KEY") ?: ""
 
 android {
     namespace = "com.example.tmdbmovieapp"
@@ -14,10 +21,11 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        // Inject TMDB API key into BuildConfig
         buildConfigField(
             "String",
             "TMDB_API_KEY",
-            "\"${project.properties["TMDB_API_KEY"]}\""
+            "\"$tmdbApiKey\""
         )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -25,7 +33,6 @@ android {
             useSupportLibrary = true
         }
     }
-
 
     buildTypes {
         release {
@@ -36,20 +43,25 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         compose = true
         buildConfig = true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"

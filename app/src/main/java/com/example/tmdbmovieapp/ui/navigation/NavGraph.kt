@@ -47,10 +47,7 @@ fun AppNavGraph() {
             )
         ) { backStackEntry ->
             val movieId = backStackEntry.arguments?.getInt("movieId") ?: 0
-            MovieDetailScreen(
-                movieId = movieId,
-                viewModel = MovieDetailViewModel()
-            )
+            MovieDetailScreen(movieId = movieId)
         }
     }
 }

@@ -1,18 +1,15 @@
 package com.example.tmdbmovieapp.data.mapper
 
-
-import com.example.tmdbmovieapp.data.api.ApiConstants
-import com.example.tmdbmovieapp.data.dto.MovieDto
+import com.example.tmdbmovieapp.data.dto.MovieDetailsDto
 import com.example.tmdbmovieapp.domain.model.Movie
 
-fun MovieDto.toDomain(): Movie {
+fun MovieDetailsDto.toDomain(): Movie {
     return Movie(
         id = id,
         title = title,
-        overview = null,
+        overview = overview,
         releaseDate = releaseDate,
         rating = rating,
         posterPath = posterPath
     )
 }
-

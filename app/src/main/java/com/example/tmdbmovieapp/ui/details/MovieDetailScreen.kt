@@ -6,12 +6,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 
 @Composable
 fun MovieDetailScreen(
     movieId: Int,
-    viewModel: MovieDetailViewModel
+    viewModel: MovieDetailViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
     val movie by viewModel.movie.collectAsState()
 
@@ -19,7 +20,16 @@ fun MovieDetailScreen(
         viewModel.loadMovie(movieId)
     }
 
-    movie?.let {
+    if (movie == null) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
+    } else {
+        val it = movie!!
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -36,29 +46,13 @@ fun MovieDetailScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Text(
-                text = it.title,
-                style = MaterialTheme.typography.headlineSmall
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
+            Text(it.title, style = MaterialTheme.typography.headlineSmall)
             Text("Release Date: ${it.releaseDate ?: "N/A"}")
             Text("Rating: ${it.rating}")
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            Text(
-                text = it.overview ?: "",
-                style = MaterialTheme.typography.bodyMedium
-            )
-        }
-    } ?: run {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator()
+            Text(it.overview ?: "")
         }
     }
 }

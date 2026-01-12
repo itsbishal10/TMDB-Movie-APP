@@ -1,6 +1,5 @@
 package com.example.tmdbmovieapp.ui.details
 
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tmdbmovieapp.data.repository.MovieRepositoryImpl
@@ -18,7 +17,19 @@ class MovieDetailViewModel : ViewModel() {
 
     fun loadMovie(movieId: Int) {
         viewModelScope.launch {
-            _movie.value = repository.getMovieDetails(movieId)
+            try {
+                println("Loading movie details for ID: $movieId")
+                println("Starting API call...")
+                val result = repository.getMovieDetails(movieId)
+                println("API call completed successfully!")
+                println("Successfully loaded movie: ${result.title}")
+                _movie.value = result
+            } catch (e: Exception) {
+                println("Error loading movie details: ${e.message}")
+                println("Error type: ${e.javaClass.simpleName}")
+                e.printStackTrace()
+                _movie.value = null
+            }
         }
     }
 }

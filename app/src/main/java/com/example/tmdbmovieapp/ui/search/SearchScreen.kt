@@ -7,7 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
+//import androidx.paging.compose.items
 import com.example.tmdbmovieapp.ui.movies.ErrorItem
 import com.example.tmdbmovieapp.ui.movies.LoadingItem
 import com.example.tmdbmovieapp.ui.movies.MovieItem
