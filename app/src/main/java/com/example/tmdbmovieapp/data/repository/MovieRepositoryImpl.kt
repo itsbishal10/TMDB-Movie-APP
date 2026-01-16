@@ -45,6 +45,18 @@ class MovieRepositoryImpl : MovieRepository {
     }
 
     override suspend fun getMovieDetails(movieId: Int): Movie {
-        return api.getMovieDetails(movieId).toDomain()
+        //Movie details
+        val details = api.getMovieDetails(movieId)
+
+        //Movie credits
+        val credits = api.getMovieCredits(movieId)
+
+        //Extract director
+        val director = credits.crew
+            .firstOrNull { it.job == "Director" }
+            ?.name
+
+        //Map to domain
+        return details.toDomain(director)
     }
 }

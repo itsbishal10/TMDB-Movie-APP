@@ -1,5 +1,6 @@
 package com.example.tmdbmovieapp.data.api
 
+import com.example.tmdbmovieapp.data.dto.MovieCreditsDto
 import com.example.tmdbmovieapp.data.dto.MovieDetailsDto
 import com.example.tmdbmovieapp.data.dto.MovieResponseDto
 import retrofit2.http.GET
@@ -24,4 +25,10 @@ interface TmdbApiService {
     suspend fun getMovieDetails(
         @Path("movie_id") movieId: Int
     ): MovieDetailsDto
+
+    @GET("movie/{movie_id}/credits")
+    suspend fun getMovieCredits(
+        @Path("movie_id") movieId: Int
+    ): MovieCreditsDto
+
 }

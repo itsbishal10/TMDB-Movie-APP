@@ -8,7 +8,10 @@ plugins {
 val localProperties = Properties().apply {
     load(rootProject.file("local.properties").inputStream())
 }
+
+// Read values
 val tmdbApiKey: String = localProperties.getProperty("TMDB_API_KEY") ?: ""
+val tmdbAccessToken: String = localProperties.getProperty("TMDB_ACCESS_TOKEN") ?: ""
 
 android {
     namespace = "com.example.tmdbmovieapp"
@@ -21,11 +24,11 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        // Inject TMDB API key into BuildConfig
+        //Read Access Token (USED in headers)
         buildConfigField(
             "String",
-            "TMDB_API_KEY",
-            "\"$tmdbApiKey\""
+            "TMDB_ACCESS_TOKEN",
+            "\"$tmdbAccessToken\""
         )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

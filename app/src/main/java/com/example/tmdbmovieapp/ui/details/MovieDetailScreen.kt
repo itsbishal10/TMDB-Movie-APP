@@ -12,7 +12,7 @@ import coil.compose.AsyncImage
 @Composable
 fun MovieDetailScreen(
     movieId: Int,
-    viewModel: MovieDetailViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    viewModel: MovieDetailViewModel = viewModel()
 ) {
     val movie by viewModel.movie.collectAsState()
 
@@ -20,39 +20,54 @@ fun MovieDetailScreen(
         viewModel.loadMovie(movieId)
     }
 
-    if (movie == null) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator()
+    when (val data = movie) {
+        null -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
         }
-    } else {
-        val it = movie!!
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-        ) {
-
-            AsyncImage(
-                model = it.posterUrl,
-                contentDescription = it.title,
+        else -> {
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(300.dp)
-            )
+                    .fillMaxSize()
+                    .padding(16.dp)
+            ) {
 
-            Spacer(modifier = Modifier.height(16.dp))
+                AsyncImage(
+                    model = data.posterUrl,
+                    contentDescription = data.title,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(320.dp)
+                )
 
-            Text(it.title, style = MaterialTheme.typography.headlineSmall)
-            Text("Release Date: ${it.releaseDate ?: "N/A"}")
-            Text("Rating: ${it.rating}")
+                Spacer(modifier = Modifier.height(16.dp))
 
-            Spacer(modifier = Modifier.height(12.dp))
+                Text(
+                    text = data.title,
+                    style = MaterialTheme.typography.headlineSmall
+                )
 
-            Text(it.overview ?: "")
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text("Release Date: ${data.releaseDate ?: "N/A"}")
+                Text("Rating: ${data.rating}")
+
+                //Director
+                Spacer(modifier = Modifier.height(6.dp))
+                Text("Director: ${data.director ?: "N/A"}")
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Text(
+                    text = data.overview ?: "",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
         }
     }
 }

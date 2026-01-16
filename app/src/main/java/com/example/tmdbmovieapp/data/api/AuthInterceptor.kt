@@ -1,5 +1,6 @@
 package com.example.tmdbmovieapp.data.api
 
+import android.util.Log
 import com.example.tmdbmovieapp.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -7,16 +8,16 @@ import okhttp3.Response
 class AuthInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val originalRequest = chain.request()
+        Log.d("AUTH", "AuthInterceptor called")
 
-        val newUrl = originalRequest.url.newBuilder()
-            .addQueryParameter("api_key", BuildConfig.TMDB_API_KEY)
+        val request = chain.request().newBuilder()
+            .addHeader(
+                "Authorization",
+                "Bearer ${BuildConfig.TMDB_ACCESS_TOKEN}"
+            )
+            .addHeader("Accept", "application/json")
             .build()
 
-        val newRequest = originalRequest.newBuilder()
-            .url(newUrl)
-            .build()
-
-        return chain.proceed(newRequest)
+        return chain.proceed(request)
     }
 }
