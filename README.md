@@ -10,16 +10,23 @@
 
 2. **Open the project** in Android Studio
 
-3. **Get TMDB API Key**
+3. **Get TMDB Read Access Token**
 
-   * Create an account at [https://www.themoviedb.org](https://www.themoviedb.org)
-   * Generate an API key
+Create an account at: https://www.themoviedb.org
 
-4. **Add API key**
-   Add the following line to `local.properties`:
+Go to Settings → API
 
-   ```
-   TMDB_API_KEY=your_api_key_here
+Generate a Read Access Token (v4 auth)
+
+Note: This project uses the Read Access Token via request headers, not an API key as a query parameter.
+
+4. Add Read Access Token
+
+Add the following line to your local.properties file
+(Do NOT commit this file):
+
+   ```bash
+   TMDB_READ_ACCESS_TOKEN=your_read_access_token_here
    ```
 
 5. **Sync Gradle** and run the app on an emulator or physical device
@@ -81,3 +88,13 @@ PagingSource / API
 * **Coil** – Image loading
 * **Material 3** – UI components
 
+
+
+
+🔐 Security Note
+
+TMDB Read Access Token is passed via Authorization headers
+
+Tokens are stored in local.properties
+
+Sensitive data is excluded from version control
